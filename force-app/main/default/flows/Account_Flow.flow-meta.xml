@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <description>enter the account type</description>
+        <name>Set_Account_Type</name>
+        <label>Set Account Type</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>VarT_Account_Type</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>AT_Account_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>is_Account_type_is_blank</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>BLANK?</description>
+        <name>is_Account_type_is_blank</name>
+        <label>is Account type is blank?</label>
+        <locationX>182</locationX>
+        <locationY>398</locationY>
+        <defaultConnector>
+            <targetReference>Account_details</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AT_Account_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Account_detail</targetReference>
+            </connector>
+            <label>yes</label>
+        </rules>
+    </decisions>
+    <description>this is account DIY flow</description>
+    <environments>Default</environments>
+    <interviewLabel>Account Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Account Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Account_detail</name>
+        <label>Account detail</label>
+        <locationX>50</locationX>
+        <locationY>518</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Copy_1_of_AD_Account_detail</name>
+            <fieldText>&lt;p&gt;{!AN_Account_Name}&lt;/p&gt;&lt;p&gt;{!AR_Account_Revenue}&lt;/p&gt;&lt;p&gt;{!O_VarT_AccountType}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Account_details</name>
+        <label>Account details</label>
+        <locationX>314</locationX>
+        <locationY>518</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>AD_Account_detail</name>
+            <fieldText>&lt;p&gt;{!AN_Account_Name}&lt;/p&gt;&lt;p&gt;{!AR_Account_Revenue}&lt;/p&gt;&lt;p&gt;{!VarT_Account_Type}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>this is main screen</description>
+        <name>FMS_Main_Screen</name>
+        <label>Main Screen</label>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Set_Account_Type</targetReference>
+        </connector>
+        <fields>
+            <name>AN_Account_Name</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <stringValue>Enter the name</stringValue>
+            </defaultValue>
+            <fieldText>Account Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>AR_Account_Revenue</name>
+            <dataType>String</dataType>
+            <fieldText>Account Revenue</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>AT_Account_Type</name>
+            <dataType>String</dataType>
+            <fieldText>Account Type</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>FMS_Main_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>O_VarT_AccountType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>others</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>variable stores the Account type</description>
+        <name>VarT_Account_Type</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>AT_Account_Type</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <description>this is account name stores in variable</description>
+        <name>VarT_AccountName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>AN_Account_Name</elementReference>
+        </value>
+    </variables>
+</Flow>
